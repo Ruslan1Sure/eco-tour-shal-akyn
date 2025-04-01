@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Экологический туризм в районе Шал Акына: пешие, велосипедные и автомобильные маршруты с интерактивной картой">
+    <meta name="keywords" content="Шал Акын, экотуризм, Казахстан, маршруты, велотуры, автотуры">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <title>Экологический туризм в районе Шал Акына</title>
     <style>
         body {
@@ -26,6 +29,10 @@
         }
         .navigation {
             margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
         }
         .navigation a {
             text-decoration: none;
@@ -33,24 +40,34 @@
             background-color: #257901;
             color: white;
             border-radius: 15px;
-            margin: 5px;
+            transition: background-color 0.3s ease;
+            flex-grow: 1;
+            text-align: center;
+            min-width: 120px;
+            box-sizing: border-box;
         }
-        .navigation a:hover {
+        .navigation a:hover, .navigation a.active {
             background-color: #45a049;
         }
         .content {
             display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .active {
             display: block;
         }
-        h1 {
+        h1, h2 {
             color: #333;
         }
         p {
             text-align: justify;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #444;
+            margin-bottom: 15px;
         }
         .footer {
             margin-top: 20px;
@@ -58,9 +75,8 @@
             color: #666;
         }
         .map-fullscreen {
-            width: 100%; /* Ширина карты больше контейнера */
-            margin-left: +15; /* Сдвигаем карту вправо на половину разницы */
-background-color: #dcdcdc;
+            width: 100%;
+            background-color: #dcdcdc;
             position: relative;
         }
         .map-fullscreen iframe {
@@ -68,30 +84,52 @@ background-color: #dcdcdc;
             height: 800px;
             border: none;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+            .navigation {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .navigation a {
+                width: 100%;
+            }
+            .map-fullscreen iframe {
+                height: 400px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-
-    <header>
-    <div class="title">
-        <h1>Экологический туризм в районе Шал Акына Северо-Казахстанской области</h1>
-    </div>
-    
-    <h2 class="subtitle">Музыкальная карта: Путешествие через звуки</h2>
-    
-    <nav class="navigation" aria-label="Основная навигация">
-        <a href="javascript:void(0)" onclick="showPage('main')">Главная</a>
-        <a href="javascript:void(0)" onclick="showPage('route1')">Пеший маршрут</a>
-        <a href="javascript:void(0)" onclick="showPage('route2')">Велотуры</a>
-        <a href="javascript:void(0)" onclick="showPage('route3')">Автотуры</a>
-        <a href="javascript:void(0)" onclick="showPage('route4')">Интерактивная карта</a>
-    </nav>
-</header>
+        <header>
+            <div class="title">
+                <h1>Экологический туризм в районе Шал Акына Северо-Казахстанской области</h1>
+            </div>
+            
+            <h2 class="subtitle">Музыкальная карта: Путешествие через звуки</h2>
+            
+            <nav class="navigation" aria-label="Основная навигация">
+                <a href="#" class="active" onclick="showPage('main', event)">Главная</a>
+                <a href="#" onclick="showPage('route1', event)">Пеший маршрут</a>
+                <a href="#" onclick="showPage('route2', event)">Велотуры</a>
+                <a href="#" onclick="showPage('route3', event)">Автотуры</a>
+                <a href="#" onclick="showPage('route4', event)">Интерактивная карта</a>
+            </nav>
+        </header>
 
         <!-- Главная страница -->
         <div id="main" class="content active">
-            <img src="images/karta.jpg" alt="Район Шал Акын" style="width:50%; height:auto;">
+              <img src="images/karta.jpg" alt="Район Шал Акын" loading="lazy">
             <h1 class="subtitle">Экотуризм в районе Шал Акына:виртуальное путешествие для всех</h1>
             <p>Добро пожаловать на сайт «Экотуризм в районе Шал Акына»! Здесь вы найдете уникальные маршруты по живописным уголкам Северо-Казахстанской области, которые можно исследовать пешком, на велосипеде или на автомобиле.</p>
             <p>О проекте:</p>
@@ -111,7 +149,7 @@ background-color: #dcdcdc;
         <!-- Пеший маршрут -->
         <div id="route1" class="content">
             <h2>Пеший маршрут</h2>
-            <img src="images/пеший1.png" alt="маршрут «Тропа времени: от вод до камня»" style="width:75%; height:auto;" >
+            <img src="images/пеший1.png" alt="маршрут «Тропа времени: от вод до камня»" loading="lazy" >
             <p>Пеший маршрут под названием  «Тропа времени: от вод до камня» включает в себя 3 точки - Сергеевский гидроузел, Ольховская дача, Геоморфологический микрозаказник. Общая длина составляет 2 км.</p>
             <p>Данный маршрут подойдет для Начинающих туристов,  семей с детьми, Любителей коротких прогулок на природе
 Особенностью  маршрута является легкая доступность и небольшая протяженность, уникальные природные ландшафты и живописные виды, возможность прослушивания музыкальных композиций, отражающих локальный фольклор. </p>
@@ -122,19 +160,19 @@ background-color: #dcdcdc;
         <!-- Велотуры -->
         <div id="route2" class="content">
             <h2>Велотуры</h2>
-            <img src="images/веломаршрут1.png" alt="«Тайны камня и лесной гармонии» " style="width:75%; height:auto;">
+            <img src="images/веломаршрут1.png" alt="«Тайны камня и лесной гармонии» " loading="lazy">
             <p>Первый веломаршрут - «Тайны камня и лесной гармонии» . состоит из двух точек  Геоморфологический микрозаказника и Заповедника «Сардонник», длина составляет  11,4 км.</p>
              <p>Рекомендуется для: Начинающих велосипедистов и семейного отдыха, краткосрочных поездок на природе</p>
              <p>Особенности маршрута: Короткая дистанция с плавными подъемами, доступ к культурным объектам и природным памятникам. Музыкальное сопровождение, подчеркивающее локальную атмосферу</p>
              <p>Советы путешественникам: взять с собой запасы вод и еды.  Планировать поездку в ясную погоду, обратить внимание на флору и фауну маршрута.</p>
              
-              <img src="images/веломаршрут2.png" alt="«Зеленый берег Есиля»" style="width:75%; height:auto;">
+              <img src="images/веломаршрут2.png" alt="«Зеленый берег Есиля»" loading="lazy">
             <p>Второй веломаршрут под названием «Зеленый берег Есиля» состоит из р.Есиль, Ботанического  микрозаказника, Гидрологического микрозаказника. Общая протяженность – 29.5км.</p>
              <p>Рекомендуется для: любителей природы и сельских пейзажей, групповых поездок и велопутешествий.</p>
               <p>Особенности маршрута:Средняя сложность с участками грунтовых дорог,возможность исследовать уникальные природные зоны, интерактивная карта с музыкальным сопровождением для каждой точки</p>
                <p>Советы путешественникам: подготовить запас воды и инструменты для ремонта велосипеда, надеть одежду, защищающую от ветра и пыли. Сделать остановки для фото на ключевых точках.</p>
 
-                <img src="images/веломаршрут3.png" alt="«Следы древности»" style="width:75%; height:auto;">
+                <img src="images/веломаршрут3.png" alt="«Следы древности»" loading="lazy">
             <p>Третий  веломаршрут имеет название - «Следы древности» , включает в себя три точки Курган Караоба, Могильник Кенес, Курган Байкара, общая длина составляет 35,3 км.</p>
              <p> Рекомендуется для опытных велосипедистов, готовых к длительным поездкам, любителей активного отдыха и живописных панорам.</p>
               <p>Особенности маршрута: - протяжённый маршрут с разнообразным рельефом, Виды на холмистую местность и степные просторы, интерактивная карта с музыкальным сопровождением.</p>
@@ -144,13 +182,13 @@ background-color: #dcdcdc;
         <!-- Автотуры -->
         <div id="route3" class="content">
             <h2>Автотуры</h2>
-            <img src="images/автомар1.png" alt="«От песчаных берегов к каменным склонам»" style="width:75%; height:auto;">
+            <img src="images/автомар1.png" alt="«От песчаных берегов к каменным склонам»" loading="lazy">
              <p>Первый автотур под названием «От песчаных берегов к каменным склонам» включает такие точки как озеро Киши Торангул, Геологический микрозаказник, Памятник природы «Афанасьевский». Общая протяженность  55,8 км.</p>
              <p> Рекомендуется для любителей длительных поездок и исследования удаленных локаций, групповых экскурсий и фототуров.</p>
               <p>Особенности маршрута - длинный маршрут с разнообразными природными зонами, возможность посещения редких природных объектов,  сопровождающая музыка, отражающая культурное наследие региона.</p>
                <p>Советы путешественникам: Проверить наличие запасного колеса и инструментов, планировать маршрут с учётом времени на остановки и фотосъёмку, соблюдать осторожность на грунтовых и проселочных дорогах. Также захватить с собой воду и еду.</p>
              
-                <img src="images/автомар2.png" alt=" «Танцующие березы и водные просторы Жалтыра»" style="width:75%; height:auto;">
+                <img src="images/автомар2.png" alt=" «Танцующие березы и водные просторы Жалтыра»" loading="lazy">
              <p>Второй автотур  состоит из двух точек  - танцующие березы и зоологический микрозаказник, протяженность составляет 46 км.</p>
              <p>  Рекомендуется для семейных поездок и комфортного осмотра достопримечательностей. Туристов, предпочитающих исследовать большие расстояния на автомобиле.</p>
               <p>Особенности маршрута: Доступ к знаковым культурным и природным объектам, возможность совмещения с пикником на природе.</p>
@@ -166,14 +204,27 @@ background-color: #dcdcdc;
         </div>
     </div>
 
-    <script>
-        function showPage(pageId) {
-// Скрываем все блоки
+        <script>
+        function showPage(pageId, event) {
+            // Предотвращаем действие по умолчанию
+            event.preventDefault();
+            
+            // Скрываем все блоки
             const contents = document.querySelectorAll('.content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // Показываем только выбранный
+            // Убираем активный класс у всех кнопок
+            const links = document.querySelectorAll('.navigation a');
+            links.forEach(link => link.classList.remove('active'));
+
+            // Показываем выбранный контент
             document.getElementById(pageId).classList.add('active');
+            
+            // Добавляем активный класс к нажатой кнопке
+            event.target.classList.add('active');
+            
+            // Прокрутка вверх при переключении страниц
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
